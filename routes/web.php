@@ -14,5 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+   dispatch(function() {
+      logger('Sẻ thấy tôi ở file log trong 1 phút nữa');
+   })->delay(now()->addMinutes(1));
+   return 'finished';
 });
