@@ -1,21 +1,9 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+use App\Jobs\ReconcileAccount;
 
 Route::get('/', function () {
-   dispatch(function() {
-      logger('Sẻ thấy tôi ở file log trong 1 phút nữa');
-   })->delay(now()->addMinutes(1));
-   return 'finished';
+   $user = App\User::first();
+   dispatch(new ReconcileAccount($user));
+   return "OK";
 });
